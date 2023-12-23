@@ -1,0 +1,7 @@
+{% extends 'shop/index.html' %}
+
+{% block content %}
+{% for product in category.products.all %}
+{% include 'shop/includes/card.html' %}
+{% endfor %}
+{% endblock content %}

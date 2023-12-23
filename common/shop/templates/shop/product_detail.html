@@ -1,0 +1,56 @@
+{% extends 'shop/index.html' %}
+
+{% block title %}
+{{product.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="card">
+    {% include 'shop/includes/product_image.html' %}
+    <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.info}}</p>
+        <p>Price: $<span>{{product.price}}</span></p>
+        <ul class="list-group mb-2 list-group-horizontal">
+            {% for category in product.categories.all %}
+            <li class="list-group-item">
+                <a  href="{{ category.get_absolute_url }}">{{category.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Buy Now
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/save_order" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+                            <input type="hidden" value="{{ product.pk }}" name="product_id">
+                            <button type="submit" class="btn btn-primary">Buy</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

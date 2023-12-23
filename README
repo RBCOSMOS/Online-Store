@@ -1,0 +1,16 @@
+C:/Users/rober/AppData/Local/Programs/Python/Python311/python.exe c:/PythonLessons/lessons/Python/online_store/main.py
+C:/Users/rober/AppData/Local/Programs/Python/Python311/python.exe -m venv venv
+source venv/scripts/activate
+python -m pip install --upgrade pip
+pip install django
+django-admin startproject common
+cd common
+python manage.py startapp shop
+
+python manage.py runserver
+
+# For changing the structure of database
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
